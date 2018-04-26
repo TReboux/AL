@@ -1,0 +1,22 @@
+eureka:
+  image: eureka
+  hostname: "eureka"
+  ports:
+    - "80:80"
+  privileged: true
+    
+
+middletier:
+  image: middletier
+  hostname: "middletier"
+  links:
+    - eureka:eureka
+
+edge:
+  image: edge
+  hostname: "edge"
+  links:
+    - eureka:eureka
+    - middletier:middletier
+  ports: 
+    - "9090:9090"
